@@ -18,9 +18,11 @@
 #   v1.0 21/01/2026, Gustavo:
 #     - Adição dos parâmetros -h, -v, -m e -a
 #   v1.1 21/01/2026, Gustavo:
-#     - Refactor do código adicionando chave valores.
+#     - Refactor do código adicionando chave ou flags.
 #   v1.2 21/01/2026, Gustavo:
 #     - Adicionando combinação de parâmetros, tendo comportamentos em conjunto.
+#   v1.3 22/02/2026, Gustavo:
+#     - Refactor do valor da versão do programa, aparecendo dinamicamente para o usuário.
 # ------------------------------------------------------------------------ #
 # Testado em:
 #   bash 5.2.37
@@ -35,7 +37,7 @@ MENSAGEM_USO=("
   -s - Letra maiúscula
   -m - Ordem Alfabética
 ")
-VERSAO="v1.0"
+VERSAO=$(grep "^#   v" key_flags.sh | cut -d " " -f 4 | tail -n 1)
 CHAVE_MAIUSCULO=0
 CHAVE_ORDEM=0
 
