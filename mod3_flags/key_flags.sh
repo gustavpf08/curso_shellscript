@@ -22,35 +22,39 @@
 #   v1.2 21/01/2026, Gustavo:
 #     - Adicionando combinação de parâmetros, tendo comportamentos em conjunto.
 #   v1.3 22/02/2026, Gustavo:
-#     - Refactor do valor da versão do programa, aparecendo dinamicamente para o usuário.
+#     - Refactor da versão do programa final do curso, extraindo dinamicamente o valor
+#     pelo cabeçalho do programa.
+#   v1.4 22/02/2026, Gustavo:
+#     - Reconfigurando o sistema de opções, adicionando "--help", "--version", "--uppercase" e
+#   "--alphabetic".
 # ------------------------------------------------------------------------ #
 # Testado em:
 #   bash 5.2.37
 # ------------------------------- VARIÁVEIS ----------------------------------------- #
 
+VERSAO=$(grep "^#   v" key_flags.sh | cut -d " " -f 4 | tail -n 1)
 USUARIOS="$(cat /etc/passwd | cut -d : -f 1)"
 MENSAGEM_USO=("
   $(basename $0) - [OPÇÕES]
   
-  -h - Menu de ajuda
-  -v - Versão
-  -s - Letra maiúscula
-  -m - Ordem Alfabética
+  -h, --help       Menu de ajuda
+  -v, --version    Versão
+  -u, --uppercase  Letra maiúscula
+  -a, --alphabetic Ordem Alfabética
 ")
-VERSAO=$(grep "^#   v" key_flags.sh | cut -d " " -f 4 | tail -n 1)
 CHAVE_MAIUSCULO=0
 CHAVE_ORDEM=0
 
 # ------------------------------- EXECUÇÃO ----------------------------------------- #
 
-# O shift desloca os próximos parâmetros para a primeira posição.
+# O shift remove o primeiro parâmetro, deslocando os outros parâmetros para uma posição a menos.
 while test -n "$1"; do
   case "$1" in
-  -h) echo "$MENSAGEM_USO" && exit 0 ;;
-  -v) echo "$VERSAO" && exit 0 ;;
-  -m) CHAVE_MAIUSCULO=1 ;;
-  -a) CHAVE_ORDEM=1 ;;
-  *) echo "Opção inválida. Valide no -h." && exit 1 ;;
+  -h | --help) echo "$MENSAGEM_USO" && exit 0 ;;
+  -v | --version) echo "$VERSAO" && exit 0 ;;
+  -a | --alphabetic) CHAVE_MAIUSCULO=1 ;;
+  -u | --uppercase) CHAVE_ORDEM=1 ;;
+  *) echo "Opção inválida: $1." && exit 1 ;;
   esac
   shift
 done
