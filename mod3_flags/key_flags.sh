@@ -32,6 +32,8 @@
 #   bash 5.2.37
 # ------------------------------- VARIÁVEIS ----------------------------------------- #
 
+CHAVE_MAIUSCULO=0
+CHAVE_ORDEM=0
 VERSAO=$(grep "^#   v" key_flags.sh | cut -d " " -f 4 | tail -n 1)
 USUARIOS="$(cat /etc/passwd | cut -d : -f 1)"
 MENSAGEM_USO=("
@@ -42,8 +44,6 @@ MENSAGEM_USO=("
   -u, --uppercase  Letra maiúscula
   -a, --alphabetic Ordem Alfabética
 ")
-CHAVE_MAIUSCULO=0
-CHAVE_ORDEM=0
 
 # ------------------------------- EXECUÇÃO ----------------------------------------- #
 
